@@ -3,10 +3,12 @@ import './App.css';
 import {Switch, Route} from 'react-router-dom';
 import HomePage from './pages/homepage/homepage-component';
 import ShopPage from './pages/shop/shop-component'
+import Header from './components/header/header-component'
 
 function App() {
   return (
     <div>
+      <Header />
       {/* سوییج اولین مسیر پیدا شده را لود میکند و دیگر صورت وجود آدرس های پیدا شده مابقی را لود نمیکند */}
       <Switch>
         {/* دستور زیر برای روتینگ است  */}
