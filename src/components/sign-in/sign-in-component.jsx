@@ -41,6 +41,7 @@ class SignIn extends React.Component{
                         <CustomButton type='submit'>
                             Sign in
                         </CustomButton>
+                        {/* signInWithGoogle is th function that we wrote in our firebase.js */}
                         <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
                             Sign in by Google
                         </CustomButton>

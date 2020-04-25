@@ -22,16 +22,18 @@ class SignUp extends React.Component{
             return
         }
         try {
+            // the following line takes {user} object after auth.createUserWithEmailAndPassword(email,password) executed
             const {user}=await auth.createUserWithEmailAndPassword(email,password);
             // because in our createUserProfileDocument we have additionalData we need to send display name by {}
             await createUserProfileDocument(user,{displayName})
+            // the following line empty our sign up form
             this.setState({
                 displayName:'',
                 email:'',
                 password:'',
                 confirmPassword:''
             })
-            alert('Sign in was successful')
+            alert('Sign up was successful')
         } 
         catch (error) {
             alert(error.message)
