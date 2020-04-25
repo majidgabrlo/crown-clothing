@@ -26,7 +26,9 @@ class SignIn extends React.Component{
     }
     
     handleChange=(event)=>{
+        // next line takes name and value of element that we took from form
         const{value,name}=event.target
+        // next line assigns to state like =>username:majidgabrlo
         this.setState({[name]:value})
     }
     render(){
