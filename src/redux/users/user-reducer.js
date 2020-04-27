@@ -1,11 +1,12 @@
-// because our state for the first tinme is nothing we make this INITIAL_STATE and its value is exact same with out state
+// because our state for the first time is nothing we make this INITIAL_STATE and its value is exact same with out state
+import {userActionConst} from './user-types'
 const INITIAL_STATE={
     currentUser:null
 }
 
 const userReducer=(state=INITIAL_STATE,action)=>{
     switch(action.type){
-        case 'SET_CURRENT_USER':
+        case userActionConst.SET_CURRENT_USER:
             return {
                 ...state,
                 currentUser:action.payload

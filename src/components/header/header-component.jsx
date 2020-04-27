@@ -4,9 +4,12 @@ import {ReactComponent as Logo} from '../../assests/crown.svg';
 import {auth} from '../../firebase/firebase-utils'
 // connect is a higher order component that lets us modify the component to have access to things related to redux
 import {connect} from 'react-redux'
+import CartIcon from '../cart-icon/cart-icon-camponent'
+import CartDropDown from '../cart-dropdown/cart-dropdown-component'
 import './header-styles.scss';
 
-const Header=({currentUser})=>(
+// ((Redux TUT)) then pass the hidden here
+const Header=({currentUser,hidden})=>(
     <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo' />
@@ -27,15 +30,20 @@ const Header=({currentUser})=>(
                 // if user is not logged in we have a link to signin page
                 <Link className='option' to='/signin'>SIGN IN</Link>
             }
+            <CartIcon />
         </div>
+        {
+            (hidden)? null : <CartDropDown/>
+        }
     </div>
 );
-
+// ((Redux TUT)) then we add ****************************
 // mapStateToProps is just name we can call it anything
-const mapStateToProps = state =>({
+const mapStateToProps = ({user:{currentUser},cart:{hidden}}) =>({
     // the user is in the root-reducer in combineReducers
     // the currentUser in the user-reducer
-    currentUser:state.user.currentUser
+    currentUser,
+    hidden
 })
 // the first argument of connect is the function that allows us to access the state 
 export default connect(mapStateToProps)(Header);
