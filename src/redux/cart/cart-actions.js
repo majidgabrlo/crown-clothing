@@ -6,4 +6,9 @@ export const toggleCartHidden = () => ({
     // payload is optional property
 })
 
+export const addItem = item =>({
+    type:CartActionTypes.ADD_ITEM,
+    payload:item
+})
+
 // follow on cart-icon-component
