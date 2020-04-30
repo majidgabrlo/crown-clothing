@@ -5,10 +5,13 @@ import HomePage from './pages/homepage/homepage-component';
 import ShopPage from './pages/shop/shop-component'
 import Header from './components/header/header-component'
 import SignInAndSignUpPage from './pages/signin-signup/signin-signup-component'
+import CheckoutPage from './pages/checkout/checkout-component'
 import {auth} from './firebase/firebase-utils'
 import {createUserProfileDocument} from './firebase/firebase-utils'
 import {connect} from 'react-redux'
 import {setCurrentUser} from './redux/users/user-actions'
+import {selectCurrentUser} from './redux/users/users-selector'
+import {createStructuredSelector} from 'reselect'
 
 class App extends React.Component {
 
@@ -53,7 +56,9 @@ class App extends React.Component {
           {/* دستور زیر برای روتینگ است  */}
           {/* "exact" shows that it have to be "/" to load HomePage */}
           <Route exact path='/' component={HomePage} />
-          <Route exact path='/shop' component={ShopPage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+
           {/* render in the next line is like render in our class */}
           <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUpPage />)} />
         </Switch>
@@ -62,8 +67,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps =({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps =createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({
