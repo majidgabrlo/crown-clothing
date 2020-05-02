@@ -1,6 +1,6 @@
 // ((Redux TUT)) first we write this
 import CartActionTypes from './cart-types'
-import {addItemToCart} from './cart-utils'
+import {addItemToCart, removeItemFromCart} from './cart-utils'
 const INITIAL_STATE={
     hidden:true,
     cartItem:[]
@@ -18,6 +18,16 @@ const cartReducer=(state=INITIAL_STATE,action)=>{
                 ...state,
                 // next line updates our Cart
                 cartItem:addItemToCart(state.cartItem,action.payload)
+            }
+        case CartActionTypes.CLEAR_ITEM_FROM_CART:
+            return{
+                ...state,
+                cartItem:state.cartItem.filter(cartItem => cartItem.id !== action.payload.id)
+            }
+        case CartActionTypes.REMOVE_ITEM:
+            return{
+                ...state,
+                cartItem:removeItemFromCart(state.cartItem,action.payload)
             }
         default:
             return state
