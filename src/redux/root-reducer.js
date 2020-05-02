@@ -13,7 +13,7 @@ const persistConfig={
     key:'root',
     storage,
     // whiteList is reducers that we want to save to our storage
-    whiteList:['cart']
+    whitelist:['cart']
 }
 
 // combineReducers is a function that makes our root reducer
