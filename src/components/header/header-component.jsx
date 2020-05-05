@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {ReactComponent as Logo} from '../../assests/crown.svg';
 import {auth} from '../../firebase/firebase-utils'
 // connect is a higher order component that lets us modify the component to have access to things related to redux
@@ -10,36 +9,39 @@ import CartIcon from '../cart-icon/cart-icon-camponent'
 import CartDropDown from '../cart-dropdown/cart-dropdown-component'
 import {selectCurrentUser} from '../../redux/users/users-selector'
 import {selectHidden} from '../../redux/cart/cart-selector'
+import {HeaderContainer,LogoContainer,OptionsContainer,OptionLink} from './header-styles'
 import './header-styles.scss';
 
 // ((Redux TUT)) then pass the hidden here
 const Header=({currentUser,hidden})=>(
-    <div className='header'>
-        <Link className='logo-container' to='/'>
+    <HeaderContainer>
+        <LogoContainer to='/'>
             <Logo className='logo' />
-        </Link>
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option'>
+            </OptionLink>
+            <OptionLink to='/shop'>
                 CONTACT
-            </Link>
+            </OptionLink>
             {
                 currentUser ?
-                    <div className='option' 
+                    // we pass div instead of link in our styles
+                    <OptionLink as='div' 
                     // next line is for user's signout
-                    onClick={()=>auth.signOut()}>SIGN OUT </div>
+                    onClick={()=>auth.signOut()}>SIGN OUT 
+                    </OptionLink>
                 :
                 // if user is not logged in we have a link to signin page
-                <Link className='option' to='/signin'>SIGN IN</Link>
+                <OptionLink to='/signin'>SIGN IN</OptionLink>
             }
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {
             (hidden)? null : <CartDropDown/>
         }
-    </div>
+    </HeaderContainer>
 );
 // ((Redux TUT)) then we add ****************************
 // mapStateToProps is just name we can call it anything

@@ -28,7 +28,7 @@ export const createUserProfileDocument = async (userAuth, additionalData)=>{
         const {displayName,email}=userAuth
         const createdAt=new Date()
         try{
-            // next lines sets data to our database
+            // next lines sets (and creates if doesn't exist) data to our database
             await userRef.set({
                 displayName,
                 email,
@@ -42,6 +42,34 @@ export const createUserProfileDocument = async (userAuth, additionalData)=>{
     // we return userRef because we have the chance to use it somewhere else
     return userRef;
 };
+
+export const convertCollectionSnapshotToMap = collections => {
+    const transformedCollection = collections.docs.map(doc => {
+        const {title,items} = doc.data()
+        return {
+            routeName : encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        }
+    })
+    return transformedCollection.reduce((acc,collection)=>{
+        acc[collection.title.toLowerCase()]=collection;
+        return acc
+    },{})
+}
+
+export const addCollectionAndDocuments = async (collectionKey,objectsToAdd) =>{
+    const collectionRef = firestore.collection(collectionKey)
+    const batch=firestore.batch()
+    objectsToAdd.forEach(obj => {
+        const newDocRef = collectionRef.doc()
+        batch.set(newDocRef,obj)
+    })
+    return await batch.commit()
+}
+
+
 
 firebase.initializeApp(config);
 
